@@ -646,7 +646,7 @@ class SceneSeven(scenebase.SceneBase):
 
 
 
-class SceneEight():
+class SceneEight(scenebase.SceneBase):
     def __init__(self):
         scenebase.SceneBase.__init__(self, 'audio/fireballed.mp3')
 
@@ -752,7 +752,7 @@ class SceneEight():
 
 
 
-class SceneNine():
+class SceneNine(scenebase.SceneBase):
     def __init__(self):
         scenebase.SceneBase.__init__(self, 'audio/fireballed.mp3')
 
@@ -809,7 +809,7 @@ class SceneNine():
 
 
 #A boss battle!
-class SceneTen():
+class SceneTen(scenebase.SceneBase):
     def __init__(self):
         scenebase.SceneBase.__init__(self, 'audio/dragonbossbattle.mp3')
 
