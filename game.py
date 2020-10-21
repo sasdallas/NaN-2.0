@@ -798,7 +798,7 @@ class SceneNine(scenebase.SceneBase):
 
 
 #A boss battle!
-class SceneTen(scenebase.SceneBase):
+"""class SceneTen(scenebase.SceneBase):
     def __init__(self):
         scenebase.SceneBase.__init__(self, 'audio/dragonbossbattle.mp3')
 
@@ -867,4 +867,4 @@ class SceneTen(scenebase.SceneBase):
             fireball = processors.FireballPlayerProcessor.BossBattleFireballLoop()
         except:
             print("Exception")
-        
+ """        
