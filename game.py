@@ -867,6 +867,4 @@ class SceneTen(scenebase.SceneBase):
             fireball = processors.FireballPlayerProcessor.BossBattleFireballLoop()
         except:
             print("Exception")
-        if fireball:
-            print("FIREBALL")
         
