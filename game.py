@@ -694,13 +694,14 @@ class SceneEight(scenebase.SceneBase):
         self.world.add_component(table, components.Audio("heavy"))
         puzzledone = False
         def puzzle_complete():
-            puzzledone = True
-            p = self.world.component_for_entity(player, components.Player)
-            if p.holding is bed:
-                p.holding = None
-            self.world.delete_entity(books)
-            notify(self.world, self.small_font, "OH MY GOD. MY HOUSE. GET THE HECK OUT OF HERE.", self, text.TextScene("These thankless jobs took their toll on NaN. He put on a friendly face, but inside he was growing weary...", SceneFour()))
-
+            if self.world.component_for_entity(guy, components.Flammable).lit:
+                puzzledone = True
+                p = self.world.component_for_entity(player, components.Player)
+                if p.holding is bed:
+                    p.holding = None
+                self.world.delete_entity(books)
+                notify(self.world, self.small_font, "AHHHHHHHHHHH IM ON FIREEEEEE", self, text.TextScene("With a joyful look on his face, NaN strolled across the streets, looking for people to set on fire.", SceneNine()))
+            
         books = create_entity(self.world, "PileOfBooks.png", pygame.Rect(1000, 560, 80, 80))
         self.world.add_component(books, components.Velocity())
         self.world.add_component(books, components.Flammable())
