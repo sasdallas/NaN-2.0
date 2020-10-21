@@ -68,17 +68,6 @@ def fade_up(world, entity, from_scene, to_scene):
     world.add_component(entity, components.ChangeAlpha(0, 4, interpolation.Smooth()))
     world.add_component(entity, components.Delay(5, next_scene, from_scene, to_scene))
 
-
-def MoveFireball(fireball,firex,firey,world):
-    numtoadd = 1
-    while not firex == 800:
-        world.component_for_entity(fireball, components.Position).x = firex + numtoadd
-        numtoadd = numtoadd + 1
-        pygame.display.update()
-        
-    
-    
-
 def notify(world, font, message, from_scene, to_scene):
     entity = world.create_entity()
     world.add_component(entity, components.Position(640, 500))
