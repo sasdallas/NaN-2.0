@@ -929,8 +929,7 @@ class SceneTen(scenebase.SceneBase):
             if self.world.component_for_entity(ps4, components.Flammable).lit:
 
                 p = self.world.component_for_entity(player, components.Player)
-                if p.holding is ps4:
-                    p.holding = None
+                
                 self.world.delete_entity(ps4)
                 notify(self.world, self.small_font, "THANKS NAN FOR BURNING MY GARBAGE PS4", self, text.TextScene("NaN was overjoyed! He strolled along, little to know what he would find.", SceneEleven()))
             
