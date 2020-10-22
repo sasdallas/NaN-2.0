@@ -870,7 +870,7 @@ class SceneNine(scenebase.SceneBase):
 
 
 
-class Scene10(scenebase.SceneBase):
+class SceneTen(scenebase.SceneBase):
     def __init__(self):
         scenebase.SceneBase.__init__(self, 'audio/fireballed.mp3')
     def init(self):
@@ -959,7 +959,7 @@ class Scene10(scenebase.SceneBase):
         self.world.add_processor(processors.FireballPlayerProcessor(player, 85), priority=25)
 
 
-class Scene11(scenebase.SceneBase):
+class SceneEleven(scenebase.SceneBase):
     def __init__(self):
         scenebase.SceneBase.__init__(self, "audio/wearenumberone.mp3")
     def init(self):
