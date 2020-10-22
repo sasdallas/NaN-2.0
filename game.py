@@ -10,12 +10,6 @@ import time
 import util
 import title
 import fireball
-#Hey, Anthony!
-#I have two things to say:
-#One: Would you mind cleaning up my code?
-#Also, please delete these functions(the first is in processors): in fireballplayerprocesser, remove the if statement 'MOUSE_BUTTON_DOWN and p.holding_fireball'
-#Then plz remove MoveFireball function in game
-#Two: I really want you to consider updating NaN's source code to be this! I worked really hard on it.
 
 
 
@@ -776,7 +770,8 @@ class SceneNine(scenebase.SceneBase):
         self.world.component_for_entity(guy2, components.Image).image = pygame.transform.flip(self.world.component_for_entity(guy2, components.Image).image, False, False)
 
         def puzzle_complete():
-            notify(self.world, self.small_font, "MY CAT!!! GET THE HECK OUT OF HERE!!!!", self, text.TextScene("NaN was so overjoyed with his power he decided to slay a dragon. Not just any dragon. The hardest dragon known to man.", SceneTen()))
+            if component.
+            notify(self.world, self.small_font, "MY CAT!!! GET THE HECK OUT OF HERE!!!!", self, text.TextScene("NaN went on to burn more people", SceneTen()))
             
         cat = create_entity(self.world, "Cat.png", pygame.Rect(1100, 170, 80, 80))
         self.world.add_component(cat, components.Hang())
@@ -869,3 +864,13 @@ class SceneNine(scenebase.SceneBase):
         except:
             print("Exception")
  """        
+
+
+
+
+
+
+class Scene10(scenebase.SceneBase):
+    def __init__(self):
+        scenebase.SceneBase.__init__(self, 'audio/fireballed.mp3')
+    
