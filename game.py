@@ -770,8 +770,8 @@ class SceneNine(scenebase.SceneBase):
         self.world.component_for_entity(guy2, components.Image).image = pygame.transform.flip(self.world.component_for_entity(guy2, components.Image).image, False, False)
 
         def puzzle_complete():
-            if component.
-            notify(self.world, self.small_font, "MY CAT!!! GET THE HECK OUT OF HERE!!!!", self, text.TextScene("NaN went on to burn more people", SceneTen()))
+            if self.world.component_for_entity(cat, components.Flammable).lit:
+                notify(self.world, self.small_font, "MY CAT!!! GET THE HECK OUT OF HERE!!!!", self, text.TextScene("NaN went on to burn more people", SceneTen()))
             
         cat = create_entity(self.world, "Cat.png", pygame.Rect(1100, 170, 80, 80))
         self.world.add_component(cat, components.Hang())
@@ -932,9 +932,9 @@ class Scene10(scenebase.SceneBase):
                 if p.holding is ps4:
                     p.holding = None
                 self.world.delete_entity(ps4)
-                notify(self.world, self.small_font, "Wow, you got the books dirty. I can't use these anymore.", self, text.TextScene("These thankless jobs took their toll on NaN. He put on a friendly face, but inside he was growing weary...", SceneFour()))
+                notify(self.world, self.small_font, "THANKS NAN FOR BURNING MY GARBAGE PS4", self, text.TextScene("These thankless jobs took their toll on NaN. He put on a friendly face, but inside he was growing weary...", SceneFour()))
             
-                
+            
         ps4 = create_entity(self.world, "playstation.png", pygame.Rect(1000, 560, 80, 80))
         self.world.add_component(ps4, components.Velocity())
         self.world.add_component(ps4, components.Flammable())
@@ -956,3 +956,5 @@ class Scene10(scenebase.SceneBase):
         self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
         self.world.add_processor(processors.AnimationProcessor(), priority=5)
         self.world.add_processor(processors.PlayerProcessor(player, 85), priority=25)
+        self.world.add_processor(processors.FireballPlayerProcessor(player, 85), priority=25)
+
