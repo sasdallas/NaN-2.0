@@ -770,8 +770,8 @@ class SceneNine(scenebase.SceneBase):
         self.world.component_for_entity(guy2, components.Image).image = pygame.transform.flip(self.world.component_for_entity(guy2, components.Image).image, False, False)
 
         def puzzle_complete():
-            if self.world.component_for_entity(cat, components.Flammable).lit:
-                notify(self.world, self.small_font, "MY CAT!!! GET THE HECK OUT OF HERE!!!!", self, text.TextScene("NaN went on to burn more people", SceneTen()))
+            
+            notify(self.world, self.small_font, "MY CAT!!! GET THE HECK OUT OF HERE!!!!", self, text.TextScene("NaN went on to burn more people", SceneTen()))
             
         cat = create_entity(self.world, "Cat.png", pygame.Rect(1100, 170, 80, 80))
         self.world.add_component(cat, components.Hang())
