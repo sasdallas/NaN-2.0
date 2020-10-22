@@ -1033,7 +1033,7 @@ class SceneEleven(scenebase.SceneBase):
         self.world.add_processor(processors.InputProcessor(), priority=10)
         self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
         self.world.add_processor(processors.AnimationProcessor(), priority=5)
-        self.world.add_processor(processors.PlayerProcessor(player, 100), priority=25)
+        
         self.world.add_processor(processors.FireballPlayerProcessor(player, 85), priority=25)
         
 
