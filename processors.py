@@ -711,12 +711,12 @@ class LaserProcessor(esper.Processor):
                 if (event.key == pygame.K_UP or event.key == pygame.K_w or event.key == pygame.K_SPACE) and v.y == 0:
                     v.y -= 6 * self.vitality
                     p.jump.sound.play()
-                elif event.key == pygame.K_f:
+                elif event.key == pygame.K_l:
                     if self.MessageShown == False:
-                        game.FireballMessage(self.world)
+                        game.LaserMessage(self.world)
                         self.MessageShown = True
                         
-                    global fireball
+                    global laser
                     self.laser = game.CreateLaser(self.world,pos.x,pos.y)
                     self.world.add_component(self.laser, components.Position(pos.x,pos.y))
                     self.world.add_component(self.laser, components.Velocity())

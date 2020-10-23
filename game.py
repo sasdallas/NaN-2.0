@@ -91,7 +91,17 @@ def FireballMessage(world):
     #I used random strs
     firetexts = ["AHHHHH HOW ARE YOU SHOOTING FIREBALLS AHHHHH!!!!!!!!!!","OH MY GOD HE IS A DEMON!!! RUN!!!","CALL THE FIRE DEPARTMENT NAN JUST SPIT UP A FIREBALL!!!!"]
     util.drawText(image,str(random.choice(firetexts)),(255, 255, 255), pygame.Rect(30, 20, 246, 134),small_font_fire)
-    
+
+
+def LaserMessage(world):
+    # manually
+    font_path_for_laser = os.path.join(components.get_base_path(), "kenpixel.ttf")
+    small_font_fire = pygame.font.Font(font_path_for_laser, 16)
+    bubble = create_entity(world, "speech.png", pygame.Rect(200, 100, 307, 173))
+    world.add_component(bubble, components.Hang())
+    image = world.component_for_entity(bubble, components.Image).image
+    util.drawText(image,"NO! I DONT HAVE LASER PROTECTION!!!",(255,255,255),pygame.Rect(30,20,246,134),small_font_fire)
+
 
 
 class SceneOne(scenebase.SceneBase):
@@ -1134,3 +1144,171 @@ class SceneThirteen(scenebase.SceneBase):
         self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
         self.world.add_processor(processors.AnimationProcessor(), priority=5)
         self.world.add_processor(processors.FireballPlayerProcessor(player, 95), priority=25)
+
+
+# Work in progress!
+class SceneFourteen(scenebase.SceneBase):
+    def __init__(self):
+        scenebase.SceneBase.__init__(self, 'audio/fireballed.mp3')
+    def init(self):
+        scenebase.SceneBase.init(self)
+
+        bg = create_entity(self.world, "HouseScene2BG.png", pygame.Rect(640, 360, 1280, 720))
+        self.world.add_component(bg, components.Background())
+
+        player = get_player(self.world)
+
+        floor2 = create_entity(self.world, "WoodPlatform2.png", pygame.Rect(400, 390, 480, 40))
+        self.world.add_component(floor2, components.Platform())
+        self.world.add_component(floor2, components.Background())
+
+        stair = create_entity(self.world, "WoodPlatform1.png", pygame.Rect(760, 500, 240, 40))
+        self.world.add_component(stair, components.Platform())
+        self.world.add_component(stair, components.Background())
+
+        bed = create_entity(self.world, "Bed.png", pygame.Rect(260, 330, 160, 80))
+        self.world.add_component(bed, components.Velocity())
+        self.world.add_component(bed, components.Flammable())
+        self.world.add_component(bed, components.Audio("heavy"))
+
+        bookshelf = create_entity(self.world, "Bookshelf.png", pygame.Rect(420, 290, 80, 160))
+        self.world.add_component(bookshelf, components.Velocity())
+        self.world.add_component(bookshelf, components.Flammable())
+        self.world.add_component(bookshelf, components.Audio("heavy"))
+
+        chest = create_entity(self.world, "chest.png", pygame.Rect(540, 330, 80, 80))
+        self.world.add_component(chest, components.Velocity())
+        self.world.add_component(chest, components.Flammable())
+        self.world.add_component(chest, components.Audio("chest"))
+
+        guy = create_entity(self.world, "NPC1.png", pygame.Rect(280, 560, 80, 80))
+        self.world.add_component(guy, components.Velocity())
+        self.world.add_component(guy, components.Flammable())
+        self.world.add_component(guy, components.Audio("grunt"))
+
+        left_chair = create_entity(self.world, "Chair.png", pygame.Rect(430, 560, 80, 80))
+        self.world.add_component(left_chair, components.Velocity())
+        self.world.add_component(left_chair, components.Flammable())
+        self.world.add_component(left_chair, components.Audio("light"))
+
+        right_chair = create_entity(self.world, "Chair.png", pygame.Rect(610, 560, 80, 80))
+        self.world.add_component(right_chair, components.Velocity())
+        self.world.add_component(right_chair, components.Flammable())
+        self.world.add_component(right_chair, components.Audio("light"))
+        self.world.component_for_entity(right_chair, components.Image).image = pygame.transform.flip(self.world.component_for_entity(right_chair, components.Image).image, False, False)
+
+        table = create_entity(self.world, "Table.png", pygame.Rect(520, 560, 80, 80))
+        self.world.add_component(table, components.Velocity())
+        self.world.add_component(table, components.Flammable())
+        self.world.add_component(table, components.Audio("heavy"))
+
+        def puzzle_complete():
+            if self.world.component_for_entity(ps4, components.Flammable).lit:
+
+                p = self.world.component_for_entity(player, components.Player)
+                
+                self.world.delete_entity(ps4)
+                notify(self.world, self.small_font, "THANKS NAN FOR BURNING MY GARBAGE PS4", self, text.TextScene("NaN was overjoyed! He strolled along, little to know what he would find.", SceneEleven()))
+            
+            
+        ps4 = create_entity(self.world, "playstation.png", pygame.Rect(1000, 560, 80, 80))
+        self.world.add_component(ps4, components.Velocity())
+        self.world.add_component(ps4, components.Flammable())
+        self.world.add_component(ps4, components.Touch(bookshelf, rect=pygame.Rect(5, 0, -10, 0), touch=puzzle_complete))
+        self.world.add_component(ps4, components.Audio("light"))
+
+        lamp = create_entity(self.world, "Chandelier.png", pygame.Rect(760, 170, 80, 80))
+        self.world.add_component(lamp, components.Flammable(True))
+        self.world.add_component(lamp, components.Hang())
+        self.world.add_component(lamp, components.Audio("glass.ogg"))
+
+        bubble = create_entity(self.world, "speech.png", pygame.Rect(1000, 100, 307, 173))
+        self.world.add_component(bubble, components.Hang())
+        image = self.world.component_for_entity(bubble, components.Image).image
+        util.drawText(image, "EY NAN MOVE MY PS4 TO THE BOOKSHELF", (255, 255, 255), pygame.Rect(30, 20, 246, 134), self.small_font)
+
+        self.world.add_processor(processors.RenderProcessor())
+        self.world.add_processor(processors.InputProcessor(), priority=10)
+        self.world.add_processor(processors.PhysicsProcessor(600), priority=15)
+        self.world.add_processor(processors.AnimationProcessor(), priority=5)
+        
+        self.world.add_processor(processors.FireballPlayerProcessor(player, 85), priority=25)
+
+
+class SceneEleven(scenebase.SceneBase):
+    def __init__(self):
+        scenebase.SceneBase.__init__(self, "audio/wearenumberone.mp3")
+    def init(self):
+        scenebase.SceneBase.init(self)
+
+        bg = create_entity(self.world, "HouseScene1BG.png", pygame.Rect(640, 360, 1280, 720))
+        self.world.add_component(bg, components.Background())
+        
+        player = get_player(self.world)
+        for i in [("WoodPlatform3.png", 520, 390, 720, 40), ("WoodPlatformHalf.png", 1000, 500, 120, 40), ("WoodPlatformThird.png", 920, 440, 80, 40), ("WoodPlatformThird.png", 1080, 560, 80, 40)]:
+            platform = create_entity(self.world, i[0], pygame.Rect(i[1], i[2], i[3], i[4]))
+            self.world.add_component(platform, components.Platform())
+            self.world.add_component(platform, components.Background())
+
+        for i in [(520, 330), (760, 330), (280, 560), (520, 560)]:
+            bed = create_entity(self.world, "Bed.png", pygame.Rect(i[0], i[1], 160, 80))
+            self.world.add_component(bed, components.Velocity())
+            
+            self.world.add_component(bed, components.Audio("heavy"))
+
+        guy = create_entity(self.world, "NPC2.png", pygame.Rect(1000, 460, 80, 80))
+        self.world.add_component(guy, components.Velocity())
+        
+        self.world.add_component(guy, components.Audio("grunt"))
+
+        table = create_entity(self.world, "TableBig.png", pygame.Rect(280, 330, 160, 80))
+        self.world.add_component(table, components.Velocity())
+        
+        self.world.add_component(table, components.Audio("heavy"))
+
+        def puzzle_complete():
+            if self.world.component_for_entity(mug, components.Flammable).lit:
+                p = self.world.component_for_entity(player, components.Player)
+                if p.holding is mug:
+                    p.holding = None
+                self.world.delete_entity(mug)
+                #self.switch_to_scene(text.TextScene("NaN was unsure how much longer he could go on like this. He still wanted to help people, but was filled with thoughts of inadequacy and self doubt.", SceneSeven()))
+                notify(self.world, self.small_font, "TOLD YOU!!! YOU'RE OUR SLAVE AGAIN!!!", self, text.TextScene("NaN was dumbstruck. He had no idea how the idiotic towns people had their hands on such shields technology. Maybe it was just this rich dolt.", SceneTwelve()))
+            else:
+                complaint = create_entity(self.world, "speech.png", pygame.Rect(640, 500, 307, 173))
+                self.world.add_component(complaint, components.ChangeAlpha(0, 4, interpolation.Smooth()))
+                util.drawText(self.world.component_for_entity(complaint, components.Image).image, "It's cold! Heat it up for me.", (255, 255, 255), pygame.Rect(30, 20, 246, 134), self.small_font)
+
+        mug = create_entity(self.world, "Mug.png", pygame.Rect(250, 160, 80, 80))
+        self.world.add_component(mug, components.Hang())
+        self.world.add_component(mug, components.Flammable())
+        self.world.add_component(mug, components.Touch(guy, True, touch=puzzle_complete))
+        self.world.add_component(mug, components.Audio("light"))
+
+        lamp = create_entity(self.world, "Chandelier.png", pygame.Rect(520, 160, 80, 80))
+        self.world.add_component(lamp, components.Flammable(True))
+        self.world.add_component(lamp, components.Hang())
+
+        lamp2 = create_entity(self.world, "Chandelier.png", pygame.Rect(760, 160, 80, 80))
+        self.world.add_component(lamp2, components.Flammable(True))
+        self.world.add_component(lamp2, components.Hang())
+
+        fireplace = create_entity(self.world, "Fireplace.png", pygame.Rect(760, 520, 160, 160))
+        self.world.add_component(fireplace, components.Flammable(True))
+        self.world.add_component(fireplace, components.Velocity())
+        self.world.add_component(fireplace, components.Background())
+
+        # shelf
+        create_entity(self.world, "shelf.png", pygame.Rect(250, 210, 80, 20))
+
+        bubble = create_entity(self.world, "speech.png", pygame.Rect(1000, 100, 307, 173))
+        self.world.add_component(bubble, components.Hang())
+        image = self.world.component_for_entity(bubble, components.Image).image
+        util.drawText(image, "COFFEE. NOW.", (255, 255, 255), pygame.Rect(30, 20, 246, 134), self.small_font)
+
+        self.world.add_processor(processors.RenderProcessor())
+        self.world.add_processor(processors.InputProcessor(), priority=10)
+        self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
+        self.world.add_processor(processors.AnimationProcessor(), priority=5)
+        
+        self.world.add_processor(processors.FireballPlayerProcessor(player, 85), priority=25)
