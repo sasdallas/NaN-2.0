@@ -730,8 +730,8 @@ class LaserProcessor(esper.Processor):
                     double = np.array([mouseX-pos.x,mouseY-pos.y])
                     a = np.linalg.norm(double)
                     b = double / a
-                    v.x = b[0]
-                    v.y = b[1]
+                    while not v.x > b[0]:
+                        v.x += 3
                     
 
                     
