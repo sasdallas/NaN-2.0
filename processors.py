@@ -669,6 +669,7 @@ class LaserProcessor(esper.Processor):
         esper.Processor.__init__(self)
         self.player = player
         self.vitality = vitality
+        self.MessageShown = False
     def process(self, filtered_events, pressed_keys, dt, screen):
         v = self.world.component_for_entity(self.player, components.Velocity)
         p = self.world.component_for_entity(self.player, components.Player)
