@@ -1137,7 +1137,7 @@ class SceneThirteen(scenebase.SceneBase):
         image = self.world.component_for_entity(bubble, components.Image).image
         util.drawText(image, "come yung one", (255, 255, 255), pygame.Rect(30, 20, 246, 134), self.small_font)
 
-        hermit = self.world.create_entity(self.world, "hermit.png", pygame.rect(1228,572,80,80))
+        hermit = self.world.create_entity(self.world, "hermit.png", pygame.Rect(1228, 572, 80, 80))
         self.world.add_component(hermit, components.Touch(player, touch=puzzle_complete))
         self.world.add_processor(processors.RenderProcessor())
         self.world.add_processor(processors.InputProcessor(), priority=10)
