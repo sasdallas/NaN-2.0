@@ -54,7 +54,7 @@ def CreateLaser(world,x,y):
     width = laserimg.get_width()
     height = laserimg.get_height()
 
-    laser = create_entity(world, "laser.png", pygame.Rect(x,y,width,height))
+    laser = create_entity(world, "laser.png", pygame.Rect(x,y,80,80))
     return laser
 def next_scene(from_scene, to_scene):
     from_scene.switch_to_scene(to_scene)
