@@ -8,7 +8,7 @@ import interpolation
 import random
 import game
 import scenebase
-
+import numpy as np
 # TODO clean up, abstract, w/e
 class RenderProcessor(esper.Processor):
     def __init__(self):
@@ -722,14 +722,15 @@ class LaserProcessor(esper.Processor):
                     self.world.add_component(self.laser, components.Velocity())
                     self.world.add_component(self.laser, components.Flammable(True))
                     v = self.world.component_for_entity(self.laser, components.Velocity)
-                    if self.player_is_facing_right == True:
-                        while not v.x > 1300:
-                            v.x += 3
-                            
-                    elif self.player_is_facing_right == False:
-                        while not v.x == 0:
-                            v.x -= 3
-                            
+                    mouseX,mouseY = pygame.mouse.get_pos()
+                    width,height = 1280,720
+                    mousething = np.array([mouseX,mouseY])
+                    cornor = np.array([width/2,height/2])
+                    t = mousething - cornor
+                    v.x = t[0]
+                    v.y = t[1]
+                    
+                    
                     
                             
                         
