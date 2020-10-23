@@ -645,11 +645,11 @@ class FireballPlayerProcessor(esper.Processor):
                 p.throw.sound.play()
             elif event.type == pygame.MOUSEBUTTONDOWN and p.holdingfireball == True:
                 
-                v = self.world.component_for_entity(self.fireball, component.Velocity)
+                v = self.world.component_for_entity(self.fireball, components.Velocity)
                 
                 while not v.x == 800:
                     v.x = v.x + 1
-                    v = self.world.component_for_entity(self.fireball, component.Velocity)
+                    v = self.world.component_for_entity(self.fireball, components.Velocity)
 
         if p.holding:
             p3 = self.world.component_for_entity(p.holding, components.Position)
@@ -808,11 +808,11 @@ class LaserProcessor(esper.Processor):
                 p.throw.sound.play()
             elif event.type == pygame.MOUSEBUTTONDOWN and p.holdingfireball == True:
                 
-                v = self.world.component_for_entity(self.fireball, component.Velocity)
+                v = self.world.component_for_entity(self.fireball, components.Velocity)
                 
                 while not v.x == 800:
                     v.x = v.x + 1
-                    v = self.world.component_for_entity(self.fireball, component.Velocity)
+                    v = self.world.component_for_entity(self.fireball, components.Velocity)
 
         if p.holding:
             p3 = self.world.component_for_entity(p.holding, components.Position)
