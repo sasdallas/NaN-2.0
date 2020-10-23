@@ -1095,5 +1095,15 @@ class SceneTwelve(scenebase.SceenBase):
 
 
 
+class SceneThirteen(scenebase.SceneBase):
+    def __init__(self):
+        scenebase.SceneBase.__init__(self, "audio/relaxing.mp3");
+    def init(self):
+        scenebase.SceneBase.init(self)
 
+        bg = create_entity(self.world, "jungle.jpg", pygame.Rect(640, 360, 1280, 720))
+        self.world.add_component(bg, components.Background)
+
+        player = get_player(self.world)
+        
 
