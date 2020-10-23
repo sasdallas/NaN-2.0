@@ -1109,7 +1109,7 @@ class SceneThirteen(scenebase.SceneBase):
         
         def puzzle_complete():
             
-            notify(self.world, self.small_font, "HAH! Your our slave forever", self, text.TextScene("NaN was distraught. These idiots had somehow made fireproof technology. He thought, but was not sure what he could do. He decided to venture through a forest, hoping to find someone or something to help him.", SceneThirteen()))
+            notify(self.world, self.small_font, "You seem to be worthy of my special power. I shall teach it to you.", self, text.TextScene("And so, NaN, the fearsome adventurer practiced with a hermit to learn a great secret.", SceneThirteen()))
             
 
         
@@ -1119,6 +1119,8 @@ class SceneThirteen(scenebase.SceneBase):
         image = self.world.component_for_entity(bubble, components.Image).image
         util.drawText(image, "come yung one", (255, 255, 255), pygame.Rect(30, 20, 246, 134), self.small_font)
 
+        hermit = self.world.create_entity(self.world, "hermit.png", pygame.rect(1228,572,80,80))
+        self.world.add_component(hermit, components.Touch(player, touch=puzzle_complete))
         self.world.add_processor(processors.RenderProcessor())
         self.world.add_processor(processors.InputProcessor(), priority=10)
         self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
