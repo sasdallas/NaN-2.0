@@ -1073,7 +1073,7 @@ class SceneTwelve(scenebase.SceenBase):
 
         def puzzle_complete():
             
-            notify(self.world, self.small_font, "HAH! Your our slave forever", self, text.TextScene("NaN was distraught. These idiots had somehow made fireproof technology.", SceneTen()))
+            notify(self.world, self.small_font, "HAH! Your our slave forever", self, text.TextScene("NaN was distraught. These idiots had somehow made fireproof technology. He thought, but was not sure what he could do. He decided to venture through a forest, hoping to find someone or something to help him.", SceneThirteen()))
             
         cat = create_entity(self.world, "Cat.png", pygame.Rect(1100, 170, 80, 80))
         self.world.add_component(cat, components.Hang())
