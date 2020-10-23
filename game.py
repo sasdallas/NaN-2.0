@@ -1118,7 +1118,7 @@ class SceneThirteen(scenebase.SceneBase):
         self.world.add_component(bubble, components.Hang())
         image = self.world.component_for_entity(bubble, components.Image).image
         util.drawText(image, "come yung one", (255, 255, 255), pygame.Rect(30, 20, 246, 134), self.small_font)
-r
+
         self.world.add_processor(processors.RenderProcessor())
         self.world.add_processor(processors.InputProcessor(), priority=10)
         self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
