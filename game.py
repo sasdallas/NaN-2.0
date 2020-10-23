@@ -1039,7 +1039,7 @@ class SceneEleven(scenebase.SceneBase):
 
 
 
-class SceneTwelve(scenebase.SceenBase):
+class SceneTwelve(scenebase.SceneBase):
     def __init__(self):
         scenebase.SceneBase.__init__(self, 'audio/wearenumberone.mp3')
     def init(self):
@@ -1105,5 +1105,5 @@ class SceneThirteen(scenebase.SceneBase):
         self.world.add_component(bg, components.Background)
 
         player = get_player(self.world)
-        
+
 
