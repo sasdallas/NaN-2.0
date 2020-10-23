@@ -996,7 +996,7 @@ class SceneEleven(scenebase.SceneBase):
                     p.holding = None
                 self.world.delete_entity(mug)
                 #self.switch_to_scene(text.TextScene("NaN was unsure how much longer he could go on like this. He still wanted to help people, but was filled with thoughts of inadequacy and self doubt.", SceneSeven()))
-                notify(self.world, self.small_font, "TOLD YOU!!! YOU'RE OUR SLAVE AGAIN!!!", self, text.TextScene("NaN was dumbstruck. He had no idea how the idiotic towns people had their hands on such shields technology. Maybe it was just this rich dolt.", SceneSeven()))
+                notify(self.world, self.small_font, "TOLD YOU!!! YOU'RE OUR SLAVE AGAIN!!!", self, text.TextScene("NaN was dumbstruck. He had no idea how the idiotic towns people had their hands on such shields technology. Maybe it was just this rich dolt.", SceneTwelve()))
             else:
                 complaint = create_entity(self.world, "speech.png", pygame.Rect(640, 500, 307, 173))
                 self.world.add_component(complaint, components.ChangeAlpha(0, 4, interpolation.Smooth()))
