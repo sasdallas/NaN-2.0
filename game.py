@@ -1099,17 +1099,28 @@ class SceneThirteen(scenebase.SceneBase):
     def __init__(self):
         scenebase.SceneBase.__init__(self, "audio/wearenumberone.mp3");
     def init(self):
-        scenebase.SceneBase.init(self)
+         scenebase.SceneBase.init(self)
 
-        bg = create_entity(self.world, "jungle.jpg", pygame.Rect(640, 360, 1280, 720))
-        self.world.add_component(bg, components.Background)
+        bg = create_entity(self.world, "jungle.png", pygame.Rect(640, 360, 1280, 720))
+        self.world.add_component(bg, components.Background())
 
         player = get_player(self.world)
 
+        f
+        def puzzle_complete():
+            
+            notify(self.world, self.small_font, "HAH! Your our slave forever", self, text.TextScene("NaN was distraught. These idiots had somehow made fireproof technology. He thought, but was not sure what he could do. He decided to venture through a forest, hoping to find someone or something to help him.", SceneThirteen()))
+            
+
+        
+
+        bubble = create_entity(self.world, "speech.png", pygame.Rect(200, 100, 307, 173))
+        self.world.add_component(bubble, components.Hang())
+        image = self.world.component_for_entity(bubble, components.Image).image
+        util.drawText(image, "come yung one", (255, 255, 255), pygame.Rect(30, 20, 246, 134), self.small_font)
+r
         self.world.add_processor(processors.RenderProcessor())
         self.world.add_processor(processors.InputProcessor(), priority=10)
         self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
         self.world.add_processor(processors.AnimationProcessor(), priority=5)
-        
-        self.world.add_processor(processors.FireballPlayerProcessor(player, 85), priority=25)
-        
+        self.world.add_processor(processors.FireballPlayerProcessor(player, 95), priority=25)
