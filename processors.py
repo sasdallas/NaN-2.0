@@ -670,6 +670,7 @@ class LaserProcessor(esper.Processor):
         self.player = player
         self.vitality = vitality
         self.MessageShown = False
+        self.player_is_facing_right = True
     def process(self, filtered_events, pressed_keys, dt, screen):
         v = self.world.component_for_entity(self.player, components.Velocity)
         p = self.world.component_for_entity(self.player, components.Player)
@@ -724,7 +725,7 @@ class LaserProcessor(esper.Processor):
                     self.world.add_component(self.laser, components.Flammable(True))
                     v = self.world.component_for_entity(self.laser, components.Velocity)
                     mouseX,mouseY = pygame.mouse.get_pos()
-                    
+                    """
                     mousething = np.array([mouseX,mouseY])
                     cornor = np.array([pos.x,pos.y])
                     double = np.array([mouseX-pos.x,mouseY-pos.y])
@@ -732,8 +733,16 @@ class LaserProcessor(esper.Processor):
                     b = double / a
                     self.world.remove_component(self.laser, components.Velocity)
                     v = self.world.add_component(self.laser, components.Velocity(b[0],b[1]))
+                    """
+                    if self.player_is_facing_right == True:
+                        while not v.x > 1300:
+                            v.x += 3
+                            
+                    elif self.player_is_facing_right == False:
+                        while not v.x == 0:
+                            v.x -= 3
+                            
                     
-
                     
                     
                             
