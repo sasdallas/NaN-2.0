@@ -663,3 +663,155 @@ class FireballPlayerProcessor(esper.Processor):
             
 
 
+# Sam's LAZER PROCESSOR
+class LaserProcessor(esper.Processor):
+    def __init__(self, player, vitality):
+        esper.Processor.__init__(self)
+        self.player = player
+        self.vitality = vitality
+    def process(self, filtered_events, pressed_keys, dt, screen):
+        v = self.world.component_for_entity(self.player, components.Velocity)
+        p = self.world.component_for_entity(self.player, components.Player)
+        s = self.world.component_for_entity(self.player, components.Size)
+        pos = self.world.component_for_entity(self.player, components.Position)
+        v.x = 0
+        if pressed_keys[pygame.K_LEFT] or pressed_keys[pygame.K_a]:
+            v.x -= 3 * self.vitality
+            self.player_is_facing_right = False
+            self.player_is_facing_left = True
+        if pressed_keys[pygame.K_RIGHT] or pressed_keys[pygame.K_d]:
+            v.x += 3 * self.vitality
+            self.player_is_facing_right = True
+
+        
+        p.holdingfireball = False
+            
+            
+        if (p.facing_right and v.x < 0) or (not p.facing_right and v.x > 0):
+            p.facing_right = not p.facing_right
+            self.player_is_facing_right = False
+            p.image.image = pygame.transform.flip(p.image.image, True, False)
+            p.animation.image = pygame.transform.flip(p.animation.image, True, False)
+            p.carry_image.image = pygame.transform.flip(p.carry_image.image, True, False)
+            p.carry_animation.image = pygame.transform.flip(p.carry_animation.image, True, False)
+        if v.x == 0 and self.world.has_component(self.player, components.Animation):
+            self.world.remove_component(self.player, components.Animation)
+            if p.holding:
+                self.world.add_component(self.player, p.carry_image)
+            else:
+                self.world.add_component(self.player, p.image)
+        elif v.x != 0 and self.world.has_component(self.player, components.Image):
+            self.world.remove_component(self.player, components.Image)
+            if p.holding:
+                self.world.add_component(self.player, p.carry_animation)
+            else:
+                self.world.add_component(self.player, p.animation)
+        for event in filtered_events:
+            if event.type == pygame.KEYDOWN:
+                if (event.key == pygame.K_UP or event.key == pygame.K_w or event.key == pygame.K_SPACE) and v.y == 0:
+                    v.y -= 6 * self.vitality
+                    p.jump.sound.play()
+                elif event.key == pygame.K_f:
+                    if self.MessageShown == False:
+                        game.FireballMessage(self.world)
+                        self.MessageShown = True
+                        
+                    global fireball
+                    self.laser = game.CreateLaser(self.world,pos.x,pos.y)
+                    self.world.add_component(self.laser, components.Position(pos.x,pos.y))
+                    self.world.add_component(self.laser, components.Velocity())
+                    self.world.add_component(self.laser, components.Flammable(True))
+                    v = self.world.component_for_entity(self.laser, components.Velocity)
+                    if self.player_is_facing_right == True:
+                        while not v.x > 1300:
+                            v.x += 3
+                            
+                    elif self.player_is_facing_right == False:
+                        while not v.x == 0:
+                            v.x -= 3
+                            
+                    
+                            
+                        
+                        
+                        
+                        
+                elif event.key == pygame.K_e:
+                    if p.holding:
+                        if self.world.has_component(self.player, components.Image):
+                            self.world.remove_component(self.player, components.Image)
+                            self.world.add_component(self.player, p.image)
+                        elif self.world.has_component(self.player, components.Animation):
+                            self.world.remove_component(self.player, components.Animation)
+                            self.world.add_component(self.player, p.animation)
+                        i = self.world.component_for_entity(p.holding, components.Image)
+                        s = self.world.component_for_entity(p.holding, components.Size)
+                        i.image = pygame.transform.rotate(i.image, -90)
+                        tmp = s.width
+                        s.width = s.height
+                        s.height = tmp
+                        self.world.add_component(p.holding, components.Velocity(0,0))
+                        p.holding = None
+                    
+                    else:
+                        rect = pygame.Rect(pos.x, pos.y - s.height * s.scale / 2, s.width * s.scale * (1 if p.facing_right else -1), s.height * s.scale)
+                        rect.normalize()
+                        for ent, (p2, i, s, v) in self.world.get_components(components.Position, components.Image, components.Size, components.Velocity):
+                            if self.world.has_component(ent, components.Player):
+                                continue
+                            if rect.collidepoint(p2.x, p2.y):
+                                p.holding = ent
+                                if self.world.has_component(self.player, components.Image):
+                                    self.world.remove_component(self.player, components.Image)
+                                    self.world.add_component(self.player, p.carry_image)
+                                elif self.world.has_component(self.player, components.Animation):
+                                    self.world.remove_component(self.player, components.Animation)
+                                    self.world.add_component(self.player, p.carry_animation)
+                                if self.world.has_component(ent, components.RotationalVelocity):
+                                    r = self.world.component_for_entity(ent, components.RotationalVelocity)
+                                    i.image = r.image
+                                    s.width = r.width
+                                    s.height = r.height
+                                    self.world.remove_component(ent, components.RotationalVelocity)
+                                i.image = pygame.transform.rotate(i.image, 90)
+                                tmp = s.width
+                                s.width = s.height
+                                s.height = tmp
+                                self.world.remove_component(ent, components.Velocity)
+                                if self.world.has_component(ent, components.Audio):
+                                    self.world.component_for_entity(ent, components.Audio).sound.play()
+                                break
+            elif event.type == pygame.MOUSEBUTTONDOWN and p.holding:
+                if self.world.has_component(self.player, components.Image):
+                    self.world.remove_component(self.player, components.Image)
+                    self.world.add_component(self.player, p.image)
+                elif self.world.has_component(self.player, components.Animation):
+                    self.world.remove_component(self.player, components.Animation)
+                    self.world.add_component(self.player, p.animation)
+                i = self.world.component_for_entity(p.holding, components.Image)
+                s = self.world.component_for_entity(p.holding, components.Size)
+                i.image = pygame.transform.rotate(i.image, -90)
+                tmp = s.width
+                s.width = s.height
+                s.height = tmp
+                x = event.pos[1] * 1280 / pygame.display.get_surface().get_width()
+                y = event.pos[0] * 720 / pygame.display.get_surface().get_height()
+                angle = math.atan2(x - pos.y, y - pos.x) % (2 * math.pi)
+                self.world.add_component(p.holding, components.Velocity(math.cos(angle)*16 * self.vitality, math.sin(angle)*12 * self.vitality))
+                self.world.add_component(p.holding, components.RotationalVelocity(320))
+                p.holding = None
+                p.throw.sound.play()
+            elif event.type == pygame.MOUSEBUTTONDOWN and p.holdingfireball == True:
+                
+                v = self.world.component_for_entity(self.fireball, component.Velocity)
+                
+                while not v.x == 800:
+                    v.x = v.x + 1
+                    v = self.world.component_for_entity(self.fireball, component.Velocity)
+
+        if p.holding:
+            p3 = self.world.component_for_entity(p.holding, components.Position)
+            p3.x = pos.x
+            p3.y = pos.y - s.height + 10
+
+

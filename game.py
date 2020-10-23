@@ -48,6 +48,14 @@ def CreateFireball(world,x,y):
     
     return fireball
 
+
+def CreateLaser(world,x,y):
+    laserimg = pygame.imgae.load("images/laser.png")
+    width = laserimg.get_width()
+    height = fireimg.get_height()
+
+    laser = create_entity(world, "laser.png", pygame.Rect(x,y,width,height))
+    return laser
 def next_scene(from_scene, to_scene):
     from_scene.switch_to_scene(to_scene)
 
