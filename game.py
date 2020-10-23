@@ -50,7 +50,7 @@ def CreateFireball(world,x,y):
 
 
 def CreateLaser(world,x,y):
-    laserimg = pygame.imgae.load("images/laser.png")
+    laserimg = pygame.image.load("images/laser.png")
     width = laserimg.get_width()
     height = fireimg.get_height()
 
@@ -1108,7 +1108,7 @@ class SceneTwelve(scenebase.SceneBase):
         self.world.add_processor(processors.InputProcessor(), priority=10)
         self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
         self.world.add_processor(processors.AnimationProcessor(), priority=5)
-        self.world.add_processor(processors.FireballPlayerProcessor(player, 95), priority=25)
+        self.world.add_processor(processors.LaserProcessor(player, 95), priority=25)
 
 
 
@@ -1144,7 +1144,7 @@ class SceneThirteen(scenebase.SceneBase):
         self.world.add_processor(processors.InputProcessor(), priority=10)
         self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
         self.world.add_processor(processors.AnimationProcessor(), priority=5)
-        self.world.add_processor(processors.LaserProcessor(player, 95), priority=25)
+        self.world.add_processor(processors.FireballPlayerProcessor(player, 95), priority=25)
 
 
 # Work in progress!
