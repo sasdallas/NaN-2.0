@@ -1099,14 +1099,14 @@ class SceneThirteen(scenebase.SceneBase):
     def __init__(self):
         scenebase.SceneBase.__init__(self, "audio/wearenumberone.mp3");
     def init(self):
-         scenebase.SceneBase.init(self)
+        scenebase.SceneBase.init(self)
 
         bg = create_entity(self.world, "jungle.png", pygame.Rect(640, 360, 1280, 720))
         self.world.add_component(bg, components.Background())
 
         player = get_player(self.world)
 
-        f
+        
         def puzzle_complete():
             
             notify(self.world, self.small_font, "HAH! Your our slave forever", self, text.TextScene("NaN was distraught. These idiots had somehow made fireproof technology. He thought, but was not sure what he could do. He decided to venture through a forest, hoping to find someone or something to help him.", SceneThirteen()))
