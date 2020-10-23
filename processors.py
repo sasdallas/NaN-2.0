@@ -723,12 +723,15 @@ class LaserProcessor(esper.Processor):
                     self.world.add_component(self.laser, components.Flammable(True))
                     v = self.world.component_for_entity(self.laser, components.Velocity)
                     mouseX,mouseY = pygame.mouse.get_pos()
-                    width,height = 1280,720
+                    
                     mousething = np.array([mouseX,mouseY])
-                    cornor = np.array([width/2,height/2])
-                    t = mousething - cornor
-                    v.x = t[0]
-                    v.y = t[1]
+                    cornor = np.array([pos.x,pos.y])
+                    double = np.array([mouseX-pos.x,mouseY-pos.y])
+                    a = np.linalg.norm(double)
+                    b = double / a
+                    v.x = b[0]
+                    v.y = b[1]
+                    
 
                     
                     
