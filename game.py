@@ -1106,4 +1106,10 @@ class SceneThirteen(scenebase.SceneBase):
 
         player = get_player(self.world)
 
-
+        self.world.add_processor(processors.RenderProcessor())
+        self.world.add_processor(processors.InputProcessor(), priority=10)
+        self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
+        self.world.add_processor(processors.AnimationProcessor(), priority=5)
+        
+        self.world.add_processor(processors.FireballPlayerProcessor(player, 85), priority=25)
+        
