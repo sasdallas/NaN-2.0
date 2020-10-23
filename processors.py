@@ -730,8 +730,8 @@ class LaserProcessor(esper.Processor):
                     double = np.array([mouseX-pos.x,mouseY-pos.y])
                     a = np.linalg.norm(double)
                     b = double / a
-                    while not v.x > b[0]:
-                        v.x += 3
+                    self.world.remove_component(self.laser, components.Velocity)
+                    v = self.world.add_component(self.laser, components.Velocity(b[0],b[1]))
                     
 
                     
@@ -808,11 +808,11 @@ class LaserProcessor(esper.Processor):
                 p.throw.sound.play()
             elif event.type == pygame.MOUSEBUTTONDOWN and p.holdingfireball == True:
                 
-                v = self.world.component_for_entity(self.fireball, components.Velocity)
+                v = self.world.component_for_entity(self.laser, components.Velocity)
                 
                 while not v.x == 800:
                     v.x = v.x + 1
-                    v = self.world.component_for_entity(self.fireball, components.Velocity)
+                    v = self.world.component_for_entity(self.laser, components.Velocity)
 
         if p.holding:
             p3 = self.world.component_for_entity(p.holding, components.Position)
