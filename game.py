@@ -1041,7 +1041,7 @@ class SceneEleven(scenebase.SceneBase):
 
 class SceneTwelve(scenebase.SceenBase):
     def __init__(self):
-        scenebase.SceneBase.__init__(self, 'audio/Retro Beat.ogg')
+        scenebase.SceneBase.__init__(self, 'audio/wearenumberone.mp3')
     def init(self):
         scenebase.SceneBase.init(self)
 
