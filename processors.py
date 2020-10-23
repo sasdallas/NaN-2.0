@@ -521,10 +521,10 @@ class FireballPlayerProcessor(esper.Processor):
             v.x -= 3 * self.vitality
             self.player_is_facing_right = False
             self.player_is_facing_left = True
-        if pressed_keys[pygame.K_RIGHT] or pressed_keys[pygame.K_d]:
+        elif pressed_keys[pygame.K_RIGHT] or pressed_keys[pygame.K_d]:
             v.x += 3 * self.vitality
             self.player_is_facing_right = True
-
+            self.player_is_facing_left = False
         
         p.holdingfireball = False
             
@@ -729,7 +729,7 @@ class LaserProcessor(esper.Processor):
                     t = mousething - cornor
                     v.x = t[0]
                     v.y = t[1]
-                    
+
                     
                     
                             
