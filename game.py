@@ -1039,5 +1039,61 @@ class SceneEleven(scenebase.SceneBase):
 
 
 
+class SceneTwelve(scenebase.SceenBase):
+    def __init__(self):
+        scenebase.SceneBase.__init__(self, 'audio/Retro Beat.ogg')
+    def init(self):
+        scenebase.SceneBase.init(self)
+
+        bg = create_entity(self.world, "OutsideSceneBG.png", pygame.Rect(640, 360, 1280, 720))
+        self.world.add_component(bg, components.Background())
+
+        player = get_player(self.world)
+
+        flower = create_entity(self.world, "Flower.png", pygame.Rect(240, 560, 80, 80))
+        self.world.add_component(flower, components.Velocity())
+        
+        self.world.add_component(flower, components.Audio("light"))
+
+        vase = create_entity(self.world, "Vase.png", pygame.Rect(510, 560, 80, 80))
+        self.world.add_component(vase, components.Velocity())
+        
+        self.world.add_component(vase, components.Audio("light"))
+
+        guy = create_entity(self.world, "NPC2.png", pygame.Rect(340, 560, 80, 80))
+        self.world.add_component(guy, components.Velocity())
+        
+        self.world.add_component(guy, components.Audio("grunt"))
+
+        guy2 = create_entity(self.world, "NPC1.png", pygame.Rect(950, 560, 80, 80))
+        self.world.add_component(guy2, components.Velocity())
+        
+        self.world.add_component(guy2, components.Audio("grunt"))
+        self.world.component_for_entity(guy2, components.Image).image = pygame.transform.flip(self.world.component_for_entity(guy2, components.Image).image, False, False)
+
+        def puzzle_complete():
+            
+            notify(self.world, self.small_font, "HAH! Your our slave forever", self, text.TextScene("NaN was distraught. These idiots had somehow made fireproof technology.", SceneTen()))
+            
+        cat = create_entity(self.world, "Cat.png", pygame.Rect(1100, 170, 80, 80))
+        self.world.add_component(cat, components.Hang())
+        
+        self.world.add_component(cat, components.Touch(guy, touch=puzzle_complete))
+        self.world.add_component(cat, components.Audio("light"))
+
+        bubble = create_entity(self.world, "speech.png", pygame.Rect(200, 100, 307, 173))
+        self.world.add_component(bubble, components.Hang())
+        image = self.world.component_for_entity(bubble, components.Image).image
+        util.drawText(image, "NaN!!!! The government(lol) just fireproofed my cat!!! NOW YOU CANT BURN HER!!! OR ANYTHING ELSE!", (255, 255, 255), pygame.Rect(30, 20, 246, 134), self.small_font)
+
+        self.world.add_processor(processors.RenderProcessor())
+        self.world.add_processor(processors.InputProcessor(), priority=10)
+        self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
+        self.world.add_processor(processors.AnimationProcessor(), priority=5)
+        self.world.add_processor(processors.FireballPlayerProcessor(player, 95), priority=25)
+
+
+
+
 
 
