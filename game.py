@@ -806,7 +806,7 @@ class SceneNine(scenebase.SceneBase):
         self.world.add_processor(processors.InputProcessor(), priority=10)
         self.world.add_processor(processors.PhysicsProcessor(600), priority=5)
         self.world.add_processor(processors.AnimationProcessor(), priority=5)
-        self.world.add_processor(processors.FireballPlayerProcessor(player, 95), priority=25)
+        self.world.add_processor(processors.LaserProcessor(player, 95), priority=25)
 
 
 
