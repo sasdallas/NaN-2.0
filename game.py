@@ -1097,7 +1097,7 @@ class SceneTwelve(scenebase.SceneBase):
 
 class SceneThirteen(scenebase.SceneBase):
     def __init__(self):
-        scenebase.SceneBase.__init__(self, "audio/relaxing.mp3");
+        scenebase.SceneBase.__init__(self, "audio/wearenumberone.mp3");
     def init(self):
         scenebase.SceneBase.init(self)
 
